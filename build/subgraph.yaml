@@ -1,0 +1,31 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: MegoTicketsPublic
+    network: matic
+    source:
+      address: "0x0540F4fabE2AE63f1aaC7A31DA8d250d6c5CDa84"
+      abi: MegoTicketsPublic
+      startBlock: 39053464
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Claimed
+        - Minted
+        - Transfer
+        - Token
+      abis:
+        - name: MegoTicketsPublic
+          file: MegoTicketsPublic/abis/MegoTicketsPublic.json
+      eventHandlers:
+        - event: Claimed(indexed uint256)
+          handler: handleClaimed
+        - event: Minted(indexed uint256)
+          handler: handleMinted
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: MegoTicketsPublic/MegoTicketsPublic.wasm
