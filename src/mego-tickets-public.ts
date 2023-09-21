@@ -66,6 +66,7 @@ export function handleTransfer(event: TransferEvent): void {
   }
   token.owner = event.params.to
   token.tokenId = event.params.tokenId
+  token.blockTimestamp = event.block.timestamp
   token.tier = tier
   token.save()
 }
