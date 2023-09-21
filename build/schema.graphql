@@ -30,5 +30,6 @@ type Token @entity(immutable: false) {
   id: Bytes!
   tokenId: BigInt! # uint256
   owner: Bytes! # address
+  blockTimestamp: BigInt!
   tier: String
 }
