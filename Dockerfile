@@ -1,0 +1,1 @@
+FROM graphprotocol/graph-node

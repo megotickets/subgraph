@@ -1,0 +1,8 @@
+{
+    "network": "matic",
+    "MegoTicketsFactory": {
+      "name": "MegoTicketsFactory",
+      "address": "0x34EC2929B3758B245fF660026c42c8dd5Bd3E721",
+      "startBlock": 67717073
+    }
+  }

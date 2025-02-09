@@ -1,18 +1,39 @@
-specVersion: 0.0.5
+specVersion: 0.0.4
 schema:
   file: schema.graphql
 dataSources:
-  - kind: ethereum
-    name: MegoTicketsPublic
+  - kind: ethereum/contract
+    name: MegoTicketsFactory
     network: matic
     source:
-      address: "0x0540F4fabE2AE63f1aaC7A31DA8d250d6c5CDa84"
-      abi: MegoTicketsPublic
-      startBlock: 39053464
+      address: "0x34EC2929B3758B245fF660026c42c8dd5Bd3E721"
+      abi: MegoTicketsFactory
+      startBlock: 67717073
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
+      file: MegoTicketsFactory/MegoTicketsFactory.wasm
+      entities:
+        - TicketContract
+      abis:
+        - name: MegoTicketsFactory
+          file: MegoTicketsFactory/abis/MegoTicketsFactory.json
+      eventHandlers:
+        - event: MegoTicketsPublicDeployed(indexed address,address,string,string)
+          handler: handleTicketCreated
+          receipt: true
+templates:
+  - name: MegoTicketsPublic
+    kind: ethereum/contract
+    network: matic
+    source:
+      abi: MegoTicketsPublic
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: templates/MegoTicketsPublic/MegoTicketsPublic.wasm
       entities:
         - Claimed
         - Minted
@@ -28,4 +49,3 @@ dataSources:
           handler: handleMinted
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: MegoTicketsPublic/MegoTicketsPublic.wasm
