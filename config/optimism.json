@@ -1,0 +1,9 @@
+{
+  "version": "0.0.3",
+  "network": "optimism",
+  "MegoTicketsFactory": {
+    "name": "MegoTicketsFactory",
+    "address": "0xd81893C9134103aE39B5E447FE2602e0E0D28926",
+    "startBlock": 131781835
+  }
+}
