@@ -9,7 +9,7 @@ import { Bytes } from "@graphprotocol/graph-ts";
 
 export function handleClaimed(event: ClaimedEvent): void {
   let entity = new Claimed(
-    event.transaction.hash.concatI32(event.logIndex.toI32()),
+    event.transaction.hash.concatI32(event.params.tokenId.toI32()),
   );
   entity.tokenId = event.params.tokenId;
   entity.blockNumber = event.block.number;
@@ -21,7 +21,7 @@ export function handleClaimed(event: ClaimedEvent): void {
 
 export function handleMinted(event: MintedEvent): void {
   let entity = new Minted(
-    event.transaction.hash.concatI32(event.logIndex.toI32()),
+    event.transaction.hash.concatI32(event.params.tokenId.toI32()),
   );
 
   let contract = MegoTicketsPublic.bind(event.address);
@@ -38,7 +38,7 @@ export function handleMinted(event: MintedEvent): void {
 
 export function handleTransfer(event: TransferEvent): void {
   let entity = new Transfer(
-    event.transaction.hash.concatI32(event.logIndex.toI32()),
+    event.transaction.hash.concatI32(event.params.tokenId.toI32()),
   );
 
   let contract = MegoTicketsPublic.bind(event.address);
@@ -54,7 +54,7 @@ export function handleTransfer(event: TransferEvent): void {
   entity.contractAddress = event.address;
   entity.save();
 
-  let id = Bytes.fromHexString(
+  let id = Bytes.fromUTF8(
     event.address.toHexString() + "-" + event.params.tokenId.toString(),
   );
   let token = Token.load(id);
